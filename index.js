@@ -12,8 +12,9 @@ var year = d.getFullYear() + 543
 if (month < 3){
   year -= 1 
 }
+var smonth = 10+month
 
-const url = `https://dmf.go.th/public/createpetroleum/data/report/menu/1114/year/${year}/month/${month}.php`
+const url = `https://dmf.go.th/public/createpetroleum/data/report/menu/1114/year/${year}/month/${month-1 < 1 ? smonth : month-1}.php`
 
 app.use(cors())
 
