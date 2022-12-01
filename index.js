@@ -482,4 +482,4 @@ app.get('/production', (req, res) => {
       })
     })
 
-    server.listen(port, () => console.log('Server running at port %d.', port))
+    app.listen(port, () => console.log('Server running at port %d.', port))
