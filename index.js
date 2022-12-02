@@ -5,16 +5,20 @@ const cors = require('cors')
 const app = express()
 const port = process.env.PORT || 9050
 
-
+const m = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
 const d = new Date()
 var month = d.getMonth()
-var year = d.getFullYear() + 543
+var day = d.getDay()
+var year = d.getFullYear()
+var month_name = m[month]
+var year_thai = year + 543
 if (month < 3){
   year -= 1 
 }
 var smonth = 10+month
+var display_month =  month-1 < 1 ? smonth : month-1
 
-const url = `https://dmf.go.th/public/createpetroleum/data/report/menu/1114/year/${year}/month/${month-1 < 1 ? smonth : month-1}.php`
+const url = `https://dmf.go.th/public/createpetroleum/data/report/menu/1114/year/${year_thai}/month/${display_month}.php`
 
 app.use(cors())
 
@@ -455,6 +459,7 @@ app.get('/production', (req, res) => {
           res.send({
             status: 'success',
             response: {
+                       date: `${day} ${month} ${year_thai}`,
                        text: {  
                                Area: area,
                                Plot: plot,
