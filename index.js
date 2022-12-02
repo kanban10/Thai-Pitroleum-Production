@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 app.get('/production', (req, res) => {
     request(url, (error, response, html) => {
-        if (true) {
+        if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html) 
 
           var Home_area = []
