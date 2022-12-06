@@ -3,6 +3,7 @@ const request = require('request')
 const cheerio = require('cheerio')
 const cors = require('cors')
 const app = express()
+const axios = require('axios')
 const port = process.env.PORT || 3020
 
 const m = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
@@ -32,9 +33,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/production', (req, res) => {
-    request(url, (error, response, html) => {
-        if (!error && response.statusCode === 200) {
-          const $ = cheerio.load(html) 
+    axios(url).then(htmlres => {
+        if (htmlres.status === 200) {
+          const $ = cheerio.load(htmlres.data) 
 
           var Home_area = []
           var Home_plot = []
@@ -537,7 +538,7 @@ app.get('/production', (req, res) => {
             404,
           )
         }
-      })
+     })
     })
 
     app.listen(port, () => console.log('Server running at port %d.', port))
